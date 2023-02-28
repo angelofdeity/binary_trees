@@ -2,6 +2,9 @@
 /**
  * binary_tree_height - measures the height of a node
  * in a binary tree
+ * Description: The height of a node is the number
+ * of edges present in the longest path
+ * connecting that node to a leaf node.
  * @tree: pointer to binary tree
  * Return: height of tree
  */

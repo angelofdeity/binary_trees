@@ -20,3 +20,18 @@ int binary_tree_is_full(const binary_tree_t *tree)
 	}
 	return (flag);
 }
+/*
+ * alternate solution(shorter code)
+ *int binary_tree_is_full(const binary_tree_t *tree)
+ *{
+ *	if (tree)
+ *	{
+ *		if (!tree->left && !tree->right)
+ *			return (1);
+ *		else
+ *			return (binary_tree_is_full(tree->left) && binary_tree_is_full(tree->
+			right));
+ *	}
+ *	return (0);
+ *}
+ */

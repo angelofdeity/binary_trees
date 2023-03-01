@@ -97,7 +97,5 @@ int binary_tree_is_perfect(const binary_tree_t *tree)
 	 *so if balance factor returns a positive or negative
 	 *number, those a true balance factors
 	 */
-	if (tree)
-		return (!binary_tree_balance(tree) && binary_tree_is_full(tree));
-	return (0);
+	return (!binary_tree_balance(tree) && binary_tree_is_full(tree));
 }

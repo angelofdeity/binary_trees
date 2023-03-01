@@ -1,4 +1,5 @@
 #include "binary_trees.h"
+#include <stdio.h>
 /**
  * binary_tree_height - measures the height of a node
  * in a binary tree
@@ -15,10 +16,13 @@ size_t binary_tree_height(const binary_tree_t *tree)
 	{
 		size_t left_height = 0, right_height = 0;
 
+		/*add 1 to left if it has left kid*/
 		if (tree->left)
 			left_height = 1 + binary_tree_height(tree->left);
+		/*add 1 to right if it has right kid*/
 		if (tree->right)
 			right_height = 1 + binary_tree_height(tree->right);
+		/*take max of both*/
 		if (left_height >= right_height)
 			return (left_height);
 		else
@@ -42,6 +46,7 @@ int binary_tree_balance(const binary_tree_t *tree)
 
 	if (tree)
 	{
+		/*balance factor = left_height - right_height*/
 		left = binary_tree_height(tree->left);
 		right = binary_tree_height(tree->right);
 	}
@@ -61,6 +66,15 @@ int binary_tree_is_full(const binary_tree_t *tree)
 
 	if (tree)
 	{
+		/*
+		 *This code checks each node to ensure that all nodes have either
+		 *0 or 2 kids
+		 *if a node has only one kid, 0 is returned by the kid signifying
+		 *it isn't full
+		 *if the other kid returns 1, flag multiplies both values and
+		 *therefore returns 0, signifying
+		 *It has neither 0 nor 2 kids
+		 */
 		if (!tree->left && !tree->right)
 			return (1);
 		flag = binary_tree_is_full(tree->left);
@@ -77,6 +91,12 @@ int binary_tree_is_full(const binary_tree_t *tree)
 
 int binary_tree_is_perfect(const binary_tree_t *tree)
 {
+	/*
+	 *As far as I have observed, a perfect tree has a
+	 *false balance factor(0) and is full
+	 *so if balance factor returns a positive or negative
+	 *number, those a true balance factors
+	 */
 	if (tree)
 		return (!binary_tree_balance(tree) && binary_tree_is_full(tree));
 	return (0);

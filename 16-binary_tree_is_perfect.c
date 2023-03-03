@@ -32,70 +32,51 @@ size_t binary_tree_height(const binary_tree_t *tree)
 }
 
 /**
- * binary_tree_balance - computes the balance factor
- * of a binary tree
- * Description: Balance factor is the height of the left
- * subtree minus the height of the right subtree
+ * binary_tree_size - measures the size of a binary tree
  * @tree: pointer to binary tree
- * Return: Balance factor
+ * Return: size of tree
  */
 
-int binary_tree_balance(const binary_tree_t *tree)
+size_t binary_tree_size(const binary_tree_t *tree)
 {
-	int left = 0, right = 0;
-
 	if (tree)
 	{
-		/*balance factor = left_height - right_height*/
-		left = binary_tree_height(tree->left);
-		right = binary_tree_height(tree->right);
+		return (binary_tree_size(tree->left) + binary_tree_size(tree->right) + 1);
 	}
-	return (left - right);
+	return (0);
 }
 /**
- * binary_tree_is_full - checks if a tree is full
- * Description: Its full if there aren't any null
- * left or right kids
- * @tree: pointer to binary tree
- * Return: 1 if full, 0 Otherwise
+ * recursivePower - calculates the power of a given base
+ * raised to a specified exponent
+ * @base: The base of the power calculation
+ * @exponent: The exponent
+ * Return: Result of power calculation
  */
-
-int binary_tree_is_full(const binary_tree_t *tree)
+int recursivePower(int base, int exponent)
 {
-	int flag = 0;
-
-	if (tree)
-	{
-		/*
-		 *This code checks each node to ensure that all nodes have either
-		 *0 or 2 kids
-		 *if a node has only one kid, 0 is returned by the kid signifying
-		 *it isn't full
-		 *if the other kid returns 1, flag multiplies both values and
-		 *therefore returns 0, signifying
-		 *It has neither 0 nor 2 kids
-		 */
-		if (!tree->left && !tree->right)
-			return (1);
-		flag = binary_tree_is_full(tree->left);
-		flag *= binary_tree_is_full(tree->right);
-	}
-	return (flag);
+	if (exponent)
+		return (base * recursivePower(base, exponent - 1));
+	return (1);
 }
-
 /**
  * binary_tree_is_perfect - checks if a binary tree is perfect
+ * Description: A perfect tree is one where all nodes have 2 kids
+ * and all leaves are at the same depth
  * @tree: pointer to tree node
  * Return: 1 if perfect, 0 Otherwise
  */
 
 int binary_tree_is_perfect(const binary_tree_t *tree)
 {
-	/*
-	 *As far as I have observed, a perfect tree has a
-	 *false balance factor(0) and is full
-	 *so if balance factor returns a positive or negative
-	 *number, those a true balance factors
-	 */
-	return (!binary_tree_balance(tree) && binary_tree_is_full(tree));
+	int height, size, perfectsize;
+
+	if (tree)
+	{
+		height = 1 + binary_tree_height(tree);
+		size = binary_tree_size(tree);
+		perfectsize = recursivePower(2, height) - 1;
+		if (size == perfectsize)
+			return (1);
+	}
+	return (0);
 }

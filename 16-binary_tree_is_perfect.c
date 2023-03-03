@@ -77,12 +77,13 @@ int binary_tree_is_perfect(const binary_tree_t *tree)
 	{
 		/*
 		 * Add 1 to the height
-		 * why? because height function counts the edges from root node
+		 * why? because height function counts the edges from the root node
 		 * so a tree with only one node would have 0 height
 		 */
 		height = 1 + binary_tree_height(tree);
 		size = binary_tree_size(tree);
-		perfectsize = recursivePower(2, height) - 1;
+		/* perfectsize = recursivePower(2, height) - 1; */
+		perfectsize = (1 << height) - 1;
 		if (size == perfectsize)
 			return (1);
 	}

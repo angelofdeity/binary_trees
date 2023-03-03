@@ -62,6 +62,9 @@ int recursivePower(int base, int exponent)
  * binary_tree_is_perfect - checks if a binary tree is perfect
  * Description: A perfect tree is one where all nodes have 2 kids
  * and all leaves are at the same depth
+ * A tree is also perfect if its size is equal to
+ * this formula - {(2^height) - 1} as this formula
+ * calculates the perfect size of a tree.
  * @tree: pointer to tree node
  * Return: 1 if perfect, 0 Otherwise
  */
@@ -72,6 +75,11 @@ int binary_tree_is_perfect(const binary_tree_t *tree)
 
 	if (tree)
 	{
+		/*
+		 * Add 1 to the height
+		 * why? because height function counts the edges from root node
+		 * so a tree with only one node would have 0 height
+		 */
 		height = 1 + binary_tree_height(tree);
 		size = binary_tree_size(tree);
 		perfectsize = recursivePower(2, height) - 1;
